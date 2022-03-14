@@ -327,7 +327,7 @@ export default class HasteMap extends EventEmitter {
       }
     }
 
-    this._cachePath = HasteMap.getCacheFilePath(
+    const getHastePath = HasteMap.getCacheFilePath(
       this._options.cacheDirectory,
       `haste-map-${this._options.name}-${rootDirHash}`,
       VERSION,
@@ -344,6 +344,8 @@ export default class HasteMap extends EventEmitter {
       dependencyExtractorHash,
       this._options.computeDependencies.toString(),
     );
+
+    this._cachePath = getHastePath;
   }
 
   static getCacheFilePath(
@@ -352,10 +354,11 @@ export default class HasteMap extends EventEmitter {
     ...extra: Array<string>
   ): string {
     const hash = createHash('md5').update(extra.join(''));
-    return path.join(
+    const pathJoin = path.join(
       tmpdir,
       `${name.replace(/\W/g, '-')}-${hash.digest('hex')}`,
     );
+    return pathJoin;
   }
 
   static getModuleMapFromJSON(json: SerializableModuleMap): HasteModuleMap {

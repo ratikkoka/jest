@@ -196,10 +196,10 @@ export default class SummaryReporter extends BaseReporter {
         ? ' related to files matching '
         : ' matching ';
 
-      return (
+      const matchTestInfo =
         chalk.dim(prefix) +
-        testPathPatternToRegExp(globalConfig.testPathPattern).toString()
-      );
+        testPathPatternToRegExp(globalConfig.testPathPattern).toString();
+      return matchTestInfo;
     };
 
     let testInfo = '';
